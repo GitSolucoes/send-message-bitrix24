@@ -16,7 +16,7 @@ except ImportError:
 load_dotenv()
 
 app = Flask(__name__)
-app.logger.setLevel(logging.INFO)  # <--- garante que logs INFO apareçam
+app.logger.setLevel(logging.INFO) 
 scheduler = BackgroundScheduler()
 scheduler.start()
 
