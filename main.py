@@ -104,7 +104,7 @@ def schedule_workflows(deal_id, data_agendamento_str):
         app.logger.error(f"❌ Erro ao agendar workflows: {e}")
 
 
-@app.route("/agendar_workflows/<int:deal_id>", methods=["GET"])
+@app.route("/agendar_workflows/<int:deal_id>", methods=["POST"])
 def agendar(deal_id):
     """Endpoint para agendar os workflows com base no negócio"""
     app.logger.info(f"📲 Requisição recebida para agendar workflows para o negócio ID: {deal_id}")
