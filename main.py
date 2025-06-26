@@ -80,12 +80,13 @@ def schedule_workflows(deal_id, data_agendamento_str):
         else:
             app.logger.info("📌 Agendando workflow das 20h do dia anterior...")
             scheduler.add_job(
-                lambda: requests.post(f"{URL_VPS}/webhook/workflow_8danoite", json={"deal_id": deal_id}),
+                lambda: requests.post(f"{URL_VPS}/webhook/workflow_8danoite?deal_id={deal_id}"),
                 trigger='date',
                 run_date=hora_20h_dia_anterior,
                 id=f"workflow_20h_{deal_id}",
                 replace_existing=True
             )
+            app.logger.info(f"✅ Workflow agendado: {scheduler.get_jobs()}")
         
         # Agendamento para 8h do dia
         if hora_8h_do_dia < agora:
@@ -93,12 +94,13 @@ def schedule_workflows(deal_id, data_agendamento_str):
         else:
             app.logger.info("📌 Agendando workflow das 8h do dia do agendamento...")
             scheduler.add_job(
-                lambda: requests.post(f"{URL_VPS}/webhook/workflow_8damanha", json={"deal_id": deal_id}),
+                lambda: requests.post(f"{URL_VPS}/webhook/workflow_8damanha?deal_id={deal_id}"),
                 trigger='date',
                 run_date=hora_8h_do_dia,
                 id=f"workflow_8h_{deal_id}",
                 replace_existing=True
             )
+            app.logger.info(f"✅ Workflow agendado: {scheduler.get_jobs()}")
 
     except Exception as e:
         app.logger.error(f"❌ Erro ao agendar workflows: {e}")
